@@ -32,3 +32,26 @@ export type Canje = {
   created_at: string
   promo?: Promo
 }
+
+export type Banco = {
+  id: string
+  nombre: string
+  color: string
+}
+
+export type DescuentoBancario = {
+  id: string
+  banco_id: string
+  titulo: string
+  rubro: string
+  dias: string[]
+  porcentaje: number | null
+  tope: string | null
+  medio_pago: string | null
+  condiciones: string | null
+  url_fuente: string | null
+  confianza: 'alta' | 'media' | 'baja'
+  verificado_at: string | null
+  activo: boolean
+  banco?: Banco
+}

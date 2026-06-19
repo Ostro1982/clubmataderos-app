@@ -6,6 +6,7 @@ import PromoDetalle from './pages/PromoDetalle'
 import Mapa from './pages/Mapa'
 import Escanear from './pages/Escanear'
 import MisCanjes from './pages/MisCanjes'
+import Descuentos from './pages/Descuentos'
 import Login from './pages/Login'
 
 function UserChip() {
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/promo/:id" element={<PromoDetalle />} />
             <Route path="/mapa" element={<Mapa />} />
+            <Route path="/bancos" element={<Descuentos />} />
             <Route path="/escanear" element={<Escanear />} />
             <Route path="/canjes" element={<MisCanjes />} />
             <Route path="/login" element={<Login />} />

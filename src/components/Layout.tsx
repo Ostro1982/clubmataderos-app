@@ -3,9 +3,10 @@ import type { ReactNode } from 'react'
 
 const tabs = [
   { to: '/', label: 'Promos', icon: '🏷️' },
-  { to: '/mapa', label: 'Mapa', icon: '🗺️' },
+  { to: '/bancos', label: 'Bancos', icon: '🏦' },
   { to: '/escanear', label: 'Escanear', icon: '📷' },
-  { to: '/canjes', label: 'Mis canjes', icon: '🎟️' },
+  { to: '/mapa', label: 'Mapa', icon: '🗺️' },
+  { to: '/canjes', label: 'Canjes', icon: '🎟️' },
 ]
 
 export default function Layout({ children }: { children: ReactNode }) {
