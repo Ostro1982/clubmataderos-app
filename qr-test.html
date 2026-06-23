@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QR de prueba — Club Mataderos</title>
+  <title>QR de prueba — Acá a la Vuelta · Mataderos</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <style>
     body { font-family: system-ui, sans-serif; background: #f5f5f7; margin: 0; padding: 24px; }
-    h1 { color: #b91c1c; }
+    h1 { color: #b91c1c; margin-bottom: 4px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
     .card { background: #fff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-    .card .qr { display: inline-block; }
     .titulo { font-weight: 600; margin: 10px 0 2px; }
     .comercio { color: #666; font-size: 13px; }
     .nota { color: #888; font-size: 13px; margin-bottom: 20px; }
@@ -18,36 +17,36 @@
 </head>
 <body>
   <h1>QR de prueba</h1>
-  <p class="nota">Cada QR representa una promo (el comercio lo tendría pegado en el local). Abrí la app en el celu, logueate, tocá <b>Escanear</b> y apuntá la cámara a estos códigos.</p>
+  <p class="nota">Cada QR es una promo de un comercio real de Mataderos. Abrí la app, registrate, tocá <b>Escanear</b> y apuntá la cámara a un código.</p>
   <div class="grid" id="grid"></div>
 
   <script>
-    const promos = [
-      { id: 'aaaaaaaa-0000-0000-0000-000000000001', titulo: '2x1 en pizzas grandes', comercio: 'Pizzería El Hornero' },
-      { id: 'aaaaaaaa-0000-0000-0000-000000000002', titulo: 'Empanadas docena 20% off', comercio: 'Pizzería El Hornero' },
-      { id: 'aaaaaaaa-0000-0000-0000-000000000003', titulo: '15% en perfumería', comercio: 'Farmacia del Parque' },
-      { id: 'aaaaaaaa-0000-0000-0000-000000000004', titulo: '10% en golosinas', comercio: 'Kiosco 24hs Mataderos' },
-      { id: 'aaaaaaaa-0000-0000-0000-000000000005', titulo: 'Corte + barba combo', comercio: 'Peluquería Estilo' },
-      { id: 'aaaaaaaa-0000-0000-0000-000000000006', titulo: '1/4 kg gratis', comercio: 'Heladería La Esquina' },
-    ];
+    const URL = 'https://pilshmwslrhcizujlemg.supabase.co/rest/v1';
+    const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpbHNobXdzbHJoY2l6dWpsZW1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4NzI2NDEsImV4cCI6MjA5NzQ0ODY0MX0.fSvCOE3Z4GFFt3WttzGQierK7Z7K9RnWxCid4l8k_wo';
     const grid = document.getElementById('grid');
-    promos.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const qr = document.createElement('div');
-      qr.className = 'qr';
-      card.appendChild(qr);
-      const t = document.createElement('div');
-      t.className = 'titulo';
-      t.textContent = p.titulo;
-      const c = document.createElement('div');
-      c.className = 'comercio';
-      c.textContent = p.comercio;
-      card.appendChild(t);
-      card.appendChild(c);
-      grid.appendChild(card);
-      new QRCode(qr, { text: p.id, width: 180, height: 180 });
-    });
+
+    fetch(`${URL}/promos?select=id,titulo,comercio:comercios(nombre)&activa=eq.true&barrio_id=eq.mataderos`, { headers: { apikey: ANON } })
+      .then(r => r.json())
+      .then(promos => {
+        if (!promos.length) { grid.textContent = 'No hay promos.'; return; }
+        promos.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const qr = document.createElement('div');
+          card.appendChild(qr);
+          const t = document.createElement('div');
+          t.className = 'titulo';
+          t.textContent = p.titulo;
+          const c = document.createElement('div');
+          c.className = 'comercio';
+          c.textContent = p.comercio ? p.comercio.nombre : '';
+          card.appendChild(t);
+          card.appendChild(c);
+          grid.appendChild(card);
+          new QRCode(qr, { text: p.id, width: 180, height: 180 });
+        });
+      })
+      .catch(e => { grid.textContent = 'Error cargando promos: ' + e; });
   </script>
 </body>
 </html>
