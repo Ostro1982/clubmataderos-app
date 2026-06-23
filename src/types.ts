@@ -51,6 +51,7 @@ export type DescuentoBancario = {
   condiciones: string | null
   url_fuente: string | null
   confianza: 'alta' | 'media' | 'baja'
+  ambito: string
   verificado_at: string | null
   activo: boolean
   banco?: Banco

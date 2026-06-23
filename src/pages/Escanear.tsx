@@ -8,8 +8,9 @@ import type { Promo } from '../types'
 type Estado =
   | { tipo: 'scan' }
   | { tipo: 'procesando' }
-  | { tipo: 'ok'; promo: Promo }
+  | { tipo: 'ok'; promo: Promo; codigo: string; fecha: string }
   | { tipo: 'repetido'; promo: Promo }
+  | { tipo: 'agotada'; promo: Promo }
   | { tipo: 'error'; msg: string }
 
 function parsePromoId(text: string): string | null {
@@ -56,36 +57,35 @@ export default function Escanear() {
   async function handle(text: string) {
     const promoId = parsePromoId(text)
     if (!promoId) {
-      setEstado({ tipo: 'error', msg: 'QR no válido para Club Mataderos.' })
+      setEstado({ tipo: 'error', msg: 'QR no válido para Acá a la Vuelta.' })
       return
     }
     setEstado({ tipo: 'procesando' })
 
-    const { data: promo, error: pe } = await supabase
+    const { data: promo } = await supabase
       .from('promos')
       .select('*, comercio:comercios(*)')
       .eq('id', promoId)
-      .eq('activa', true)
       .single()
 
-    if (pe || !promo) {
+    const { data, error } = await supabase.rpc('registrar_canje', { p_promo: promoId })
+    if (error) {
+      setEstado({ tipo: 'error', msg: 'Error al registrar: ' + error.message })
+      return
+    }
+    const r = data as { status: string; codigo?: string; created_at?: string }
+
+    if (r.status === 'ok' && promo) {
+      setEstado({ tipo: 'ok', promo: promo as Promo, codigo: r.codigo!, fecha: r.created_at! })
+    } else if (r.status === 'repetido' && promo) {
+      setEstado({ tipo: 'repetido', promo: promo as Promo })
+    } else if (r.status === 'agotada' && promo) {
+      setEstado({ tipo: 'agotada', promo: promo as Promo })
+    } else if (r.status === 'invalida') {
       setEstado({ tipo: 'error', msg: 'Promo no encontrada o inactiva.' })
-      return
+    } else {
+      setEstado({ tipo: 'error', msg: 'No se pudo registrar el canje.' })
     }
-
-    const { error: ce } = await supabase
-      .from('canjes')
-      .insert({ promo_id: promoId, user_id: session!.user.id })
-
-    if (ce) {
-      if (ce.code === '23505') {
-        setEstado({ tipo: 'repetido', promo: promo as Promo })
-      } else {
-        setEstado({ tipo: 'error', msg: 'Error al registrar canje: ' + ce.message })
-      }
-      return
-    }
-    setEstado({ tipo: 'ok', promo: promo as Promo })
   }
 
   function reset() {
@@ -115,10 +115,22 @@ export default function Escanear() {
       {estado.tipo === 'procesando' && <p className="text-center text-gray-500">Procesando…</p>}
 
       {estado.tipo === 'ok' && (
-        <Resultado emoji="✅" titulo="¡Canje exitoso!" promo={estado.promo} onReset={reset} />
+        <Resultado emoji="✅" titulo="¡Canje confirmado!" promo={estado.promo} onReset={reset}>
+          <div className="bg-gray-900 text-white rounded-xl py-3 px-4 mt-2">
+            <p className="text-xs text-gray-300">Código de canje</p>
+            <p className="text-3xl font-mono font-bold tracking-widest">{estado.codigo}</p>
+            <p className="text-xs text-gray-400 mt-1">{new Date(estado.fecha).toLocaleString('es-AR')}</p>
+          </div>
+          <p className="text-sm text-gray-500">Mostrale este código al comercio.</p>
+        </Resultado>
       )}
       {estado.tipo === 'repetido' && (
         <Resultado emoji="⚠️" titulo="Ya canjeaste esta promo" promo={estado.promo} onReset={reset} />
+      )}
+      {estado.tipo === 'agotada' && (
+        <Resultado emoji="🚫" titulo="Promo agotada" promo={estado.promo} onReset={reset}>
+          <p className="text-sm text-gray-500">Se llegó al límite de canjes de esta promo.</p>
+        </Resultado>
       )}
       {estado.tipo === 'error' && (
         <div className="text-center space-y-3 mt-6">
@@ -138,11 +150,13 @@ function Resultado({
   titulo,
   promo,
   onReset,
+  children,
 }: {
   emoji: string
   titulo: string
   promo: Promo
   onReset: () => void
+  children?: React.ReactNode
 }) {
   return (
     <div className="text-center space-y-3 mt-6">
@@ -150,10 +164,8 @@ function Resultado({
       <h2 className="text-xl font-bold">{titulo}</h2>
       <p className="font-semibold">{promo.titulo}</p>
       <p className="text-gray-500">{promo.comercio?.nombre}</p>
-      {promo.descuento && (
-        <p className="text-2xl font-bold text-red-700">{promo.descuento}</p>
-      )}
-      <p className="text-sm text-gray-500">Mostrale esta pantalla al comercio.</p>
+      {promo.descuento && <p className="text-2xl font-bold text-red-700">{promo.descuento}</p>}
+      {children}
       <button onClick={onReset} className="bg-gray-800 text-white px-4 py-2 rounded-xl mt-2">
         Escanear otro
       </button>

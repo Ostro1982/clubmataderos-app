@@ -57,7 +57,7 @@ export default function Descuentos() {
     <div className="p-3">
       <h2 className="font-bold text-lg px-1">Descuentos bancarios</h2>
       <p className="text-xs text-gray-500 px-1 mb-3">
-        Elegí tus bancos para ver solo tus descuentos. Datos verificados al 19/06/2026 — confirmá vigencia en el banco.
+        Elegí tus bancos, billeteras y programas para ver solo tus descuentos. Relevado el 23/06/2026 — confirmá vigencia en la entidad.
       </p>
 
       {/* Mis bancos */}
@@ -146,6 +146,9 @@ function DescuentoCard({ d }: { d: DescuentoBancario }) {
 
         <div className="flex flex-wrap gap-1 mt-2">
           <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">{d.rubro}</span>
+          {d.ambito && d.ambito !== 'nacional' && (
+            <span className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">{d.ambito}</span>
+          )}
           {d.dias.map((dd) => (
             <span key={dd} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
               {DIAS_LABEL[dd] ?? dd}

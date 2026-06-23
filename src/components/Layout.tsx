@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { BRAND, BARRIO_NOMBRE } from '../config'
 
 const tabs = [
   { to: '/', label: 'Promos', icon: '🏷️' },
@@ -14,7 +15,8 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col max-w-md mx-auto bg-[#f5f5f7]">
       <header className="bg-red-700 text-white px-4 py-3 sticky top-0 z-10 shadow">
-        <h1 className="font-bold text-lg tracking-tight">Club Mataderos</h1>
+        <h1 className="font-bold text-lg tracking-tight leading-none">{BRAND}</h1>
+        <p className="text-xs text-red-100 leading-none mt-0.5">{BARRIO_NOMBRE}</p>
       </header>
 
       <main className="flex-1 pb-20">{children}</main>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { BARRIO_ID } from '../config'
 import type { Promo } from '../types'
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       .from('promos')
       .select('*, comercio:comercios(*)')
       .eq('activa', true)
+      .eq('barrio_id', BARRIO_ID)
       .order('created_at', { ascending: false })
       .then(({ data, error }) => {
         if (error) console.error(error)
