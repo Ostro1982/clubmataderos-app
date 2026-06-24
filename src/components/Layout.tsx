@@ -1,13 +1,14 @@
 import { Link, useLocation } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { BRAND, BARRIO_NOMBRE } from '../config'
+import { IcCerca, IcPromos, IcEscanear, IcBancos, IcCanjes } from './Icons'
 
 const tabs = [
-  { to: '/', label: 'Promos', icon: '🏷️' },
-  { to: '/bancos', label: 'Bancos', icon: '🏦' },
-  { to: '/escanear', label: 'Escanear', icon: '📷' },
-  { to: '/mapa', label: 'Mapa', icon: '🗺️' },
-  { to: '/canjes', label: 'Canjes', icon: '🎟️' },
+  { to: '/', label: 'Cerca', Icon: IcCerca },
+  { to: '/promos', label: 'Promos', Icon: IcPromos },
+  { to: '/escanear', label: 'Escanear', Icon: IcEscanear },
+  { to: '/bancos', label: 'Bancos', Icon: IcBancos },
+  { to: '/canjes', label: 'Canjes', Icon: IcCanjes },
 ]
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -19,7 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <p className="text-xs text-red-100 leading-none mt-0.5">{BARRIO_NOMBRE}</p>
       </header>
 
-      <main className="flex-1 pb-20">{children}</main>
+      <main className={`flex-1 ${pathname === '/' ? 'overflow-hidden' : 'pb-20'}`}>{children}</main>
 
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t flex">
         {tabs.map((t) => {
@@ -28,9 +29,9 @@ export default function Layout({ children }: { children: ReactNode }) {
             <Link
               key={t.to}
               to={t.to}
-              className={`flex-1 py-2 text-center text-xs ${active ? 'text-red-700 font-semibold' : 'text-gray-500'}`}
+              className={`flex-1 py-2 flex flex-col items-center gap-0.5 text-center text-[11px] ${active ? 'text-red-700 font-semibold' : 'text-gray-400'}`}
             >
-              <div className="text-xl leading-none">{t.icon}</div>
+              <t.Icon className="w-6 h-6" />
               {t.label}
             </Link>
           )

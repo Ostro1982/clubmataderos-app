@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route, Link } from 'react-router-dom'
 import { AuthProvider, useAuth } from './lib/auth'
 import Layout from './components/Layout'
 import Home from './pages/Home'
+import MapaVivo from './pages/MapaVivo'
 import PromoDetalle from './pages/PromoDetalle'
 import Mapa from './pages/Mapa'
 import Escanear from './pages/Escanear'
@@ -28,7 +29,8 @@ export default function App() {
         <UserChip />
         <Layout>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<MapaVivo />} />
+            <Route path="/promos" element={<Home />} />
             <Route path="/promo/:id" element={<PromoDetalle />} />
             <Route path="/mapa" element={<Mapa />} />
             <Route path="/bancos" element={<Descuentos />} />
