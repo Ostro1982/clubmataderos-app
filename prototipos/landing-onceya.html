@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Acá a la Vuelta — Las promos de tu barrio · Mataderos</title>
+<meta name="theme-color" content="#C92B1A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --red:#C92B1A;--red-dark:#9E1F10;--red-light:#EF3D29;--amber:#E8700A;
+    --cream:#0F0E0D;--dark:#0A0908;--dark-mid:#1A1714;--mid:#8A8078;--text:#DDD6CC;--white:#fff;
+    --wa-green:#25D366;--wa-dark:#128C7E;--r-sm:10px;--r-md:16px;--r-lg:24px;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:rgba(10,9,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--red) 30%,var(--amber) 70%,transparent);opacity:.4}
+  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .nav-logo-icon{width:34px;height:34px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';color:#fff;font-size:17px;flex-shrink:0}
+  .nav-logo-text{font-family:'Bebas Neue';font-size:20px;letter-spacing:.06em;color:#fff;line-height:1}
+  .nav-logo-text span{color:var(--amber)}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.04em;transition:color .2s}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.highlight{color:var(--amber);font-weight:700}
+  .nav-cta{background:var(--red);color:#fff;padding:9px 20px;border-radius:8px;font-size:.82rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:.2s}
+  .nav-cta:hover{background:var(--red-light);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,43,26,.4)}
+
+  /* TICKER */
+  .ticker-wrap{background:var(--red);overflow:hidden;padding:10px 0;margin-top:64px}
+  .ticker-track{display:flex;animation:ticker 24s linear infinite;white-space:nowrap}
+  .ticker-track span{font-family:'Bebas Neue';font-size:.9rem;letter-spacing:.15em;color:rgba(255,255,255,.9);padding:0 2.5rem}
+  .ticker-track span.sep{color:rgba(255,255,255,.35);padding:0}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* HERO */
+  .hero{min-height:calc(100vh - 64px);background:var(--dark);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:70px 5vw;position:relative;overflow:hidden}
+  .hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px}
+  .hero-bg-gradient{position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(201,43,26,.2),transparent 65%),radial-gradient(ellipse 60% 40% at 85% 80%,rgba(232,112,10,.1),transparent 60%),radial-gradient(ellipse 50% 40% at 15% 70%,rgba(201,43,26,.07),transparent 60%)}
+  .hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");opacity:.5}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,112,10,.12);border:1px solid rgba(232,112,10,.3);color:var(--amber);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:2rem;position:relative;z-index:2}
+  .hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 1.8s ease infinite}
+  .hero-title{font-family:'Bebas Neue';font-size:clamp(72px,14vw,168px);line-height:.84;letter-spacing:.01em;color:#fff;position:relative;z-index:2}
+  .hero-title .accent{color:var(--red)}
+  .hero-title .small-line{display:block;font-family:'DM Serif Display';font-style:italic;font-size:clamp(20px,3.4vw,40px);color:rgba(255,255,255,.45);letter-spacing:.02em;margin-top:.4rem}
+  .hero-sub{max-width:540px;color:rgba(255,255,255,.5);font-size:1rem;line-height:1.75;margin:1.8rem auto 2.4rem;position:relative;z-index:2}
+  .hero-sub strong{color:rgba(255,255,255,.85);font-weight:600}
+  .hero-search{display:flex;width:100%;max-width:580px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-md);overflow:hidden;margin:0 auto 1.5rem;position:relative;z-index:2;transition:.25s}
+  .hero-search:focus-within{border-color:rgba(201,43,26,.6);box-shadow:0 0 0 3px rgba(201,43,26,.15)}
+  .hero-search input{flex:1;background:transparent;border:none;outline:none;padding:17px 20px;color:#fff;font-family:inherit;font-size:1rem}
+  .hero-search input::placeholder{color:rgba(255,255,255,.3)}
+  .hero-search button{background:var(--red);border:none;cursor:pointer;padding:14px 26px;color:#fff;font-family:inherit;font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:8px}
+  .hero-search button:hover{background:var(--red-light)}
+  .hero-cats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:640px;margin:0 auto 3rem;position:relative;z-index:2}
+  .hero-cats a{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.6);padding:7px 16px;border-radius:100px;font-size:.78rem;font-weight:600;text-decoration:none;transition:.2s;cursor:pointer}
+  .hero-cats a:hover,.hero-cats a.active{background:var(--red);border-color:var(--red);color:#fff}
+  .hero-stats{display:flex;gap:3.5rem;justify-content:center;position:relative;z-index:2}
+  .stat-num{font-family:'Bebas Neue';font-size:3rem;color:#fff;line-height:1}
+  .stat-num span{color:var(--red)}
+  .stat-label{font-size:.7rem;color:rgba(255,255,255,.38);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+  .stat-sep{width:1px;background:rgba(255,255,255,.08)}
+
+  /* SECTION */
+  .section{padding:80px 5vw}
+  .section-title{font-family:'Bebas Neue';font-size:clamp(2.4rem,5vw,3.6rem);letter-spacing:.02em;line-height:1;color:#fff}
+  .section-title em{font-family:'DM Serif Display';font-style:italic;color:var(--red)}
+  .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+  .section-count{font-size:.82rem;color:var(--mid)}
+
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2.4rem}
+  .filter-btn{border:1.5px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04);color:var(--mid);padding:8px 18px;border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s}
+  .filter-btn:hover{border-color:var(--red);color:#FF6B5B}
+  .filter-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+
+  /* CARD */
+  .card{background:#1C1916;border-radius:var(--r-lg);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);transition:.25s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.7),0 0 0 1px rgba(201,43,26,.2);border-color:rgba(201,43,26,.25)}
+  .card-thumb{height:150px;position:relative;overflow:hidden}
+  .card-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.6))}
+  .card-emoji{position:absolute;top:12px;left:12px;z-index:2;font-size:1.6rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+  .card-pin{position:absolute;top:12px;right:12px;z-index:2;background:#fff;color:var(--red);font-family:'Bebas Neue';font-size:1.2rem;letter-spacing:.04em;padding:3px 12px;border-radius:100px;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .card-com{position:absolute;bottom:12px;left:14px;z-index:2;font-family:'Bebas Neue';font-size:1rem;letter-spacing:.08em;color:rgba(255,255,255,.85)}
+  .c1{background:linear-gradient(135deg,#3D0D09,#8B1A10 50%,#C92B1A)}
+  .c2{background:linear-gradient(135deg,#0D1F3D,#1A3D7A 50%,#2563C4)}
+  .c3{background:linear-gradient(135deg,#0D2B0D,#1A5C1A 50%,#22A022)}
+  .c4{background:linear-gradient(135deg,#2B1A0D,#6B3D15 50%,#B8660F)}
+  .c5{background:linear-gradient(135deg,#1A0D2B,#3D1A6B 50%,#7B35CC)}
+  .c6{background:linear-gradient(135deg,#2B0D1A,#6B1A3D 50%,#C2185B)}
+  .card-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column}
+  .card-name{font-size:1.05rem;font-weight:800;color:#EDE6DC;line-height:1.2;margin-bottom:6px}
+  .card-address{display:flex;align-items:center;gap:5px;font-size:.78rem;color:#6A6260;margin-bottom:12px}
+  .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;flex:1;align-content:flex-start}
+  .tag{background:rgba(255,255,255,.06);color:#7A7268;font-size:.67rem;font-weight:600;padding:3px 9px;border-radius:100px;border:1px solid rgba(255,255,255,.05)}
+  .tag.amber{background:rgba(232,112,10,.12);color:#E8951A;border-color:rgba(232,112,10,.2)}
+  .card-actions{display:flex;gap:7px}
+  .btn-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--red);color:#fff;border:none;border-radius:var(--r-sm);padding:10px 14px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s}
+  .btn-wa:hover{background:var(--red-light);transform:translateY(-1px)}
+  .btn-more{background:rgba(255,255,255,.06);color:#7A7268;border:1px solid rgba(255,255,255,.07);border-radius:var(--r-sm);padding:10px 12px;font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center}
+  .btn-more:hover{background:rgba(255,255,255,.11);color:#fff}
+
+  /* BANCOS STRIP */
+  .bancos-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.5rem}
+  .banco-chip{display:flex;align-items:center;gap:8px;background:#1C1916;border:1px solid rgba(255,255,255,.07);border-radius:100px;padding:8px 16px;font-size:.82rem;font-weight:600;color:var(--text)}
+  .banco-dot{width:10px;height:10px;border-radius:50%}
+
+  /* HOW */
+  .section-how{background:var(--dark)}
+  .section-how .section-title em{color:var(--amber)}
+  .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;margin-top:2.5rem}
+  .how-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:34px 30px;position:relative}
+  .step-num{font-family:'Bebas Neue';font-size:5rem;line-height:1;color:rgba(255,255,255,.05);position:absolute;top:16px;right:24px}
+  .step-icon{width:44px;height:44px;background:rgba(201,43,26,.12);border:1px solid rgba(201,43,26,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.2rem}
+  .step-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:8px}
+  .step-desc{font-size:.84rem;color:rgba(255,255,255,.4);line-height:1.65}
+
+  /* SUMATE */
+  .section-sumate{background:#141210}
+  .sumate-inner{max-width:940px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .sumate-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,112,10,.12);border:1px solid rgba(232,112,10,.3);color:var(--amber);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:1.4rem}
+  .sumate-title{font-family:'Bebas Neue';font-size:clamp(2.2rem,5vw,3.2rem);line-height:1;margin-bottom:1rem;color:#fff}
+  .sumate-title span{color:var(--red)}
+  .sumate-desc{color:rgba(255,255,255,.5);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem}
+  .sumate-perks{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .sumate-perks li{display:flex;align-items:center;gap:10px;font-size:.88rem;color:rgba(255,255,255,.8);font-weight:500}
+  .perk-check{width:20px;height:20px;background:var(--red);border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.65rem;flex-shrink:0}
+  .perk-check.amber{background:var(--amber)}
+  .sumate-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-lg);padding:32px}
+  .sumate-form h3{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:1.5rem}
+  .form-field{display:flex;flex-direction:column;gap:14px}
+  .form-field input,.form-field select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none}
+  .form-field input::placeholder{color:rgba(255,255,255,.3)}
+  .form-field select{color:rgba(255,255,255,.6)}
+  .form-field option{background:#1C1916}
+  .btn-submit{background:var(--red);color:#fff;border:none;padding:14px;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+  .btn-submit:hover{background:var(--red-light);transform:translateY(-1px)}
+
+  /* FOOTER */
+  footer{background:var(--dark-mid);padding:40px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,.05)}
+  .footer-logo{font-family:'Bebas Neue';font-size:1.5rem;letter-spacing:.08em;color:rgba(255,255,255,.65)}
+  .footer-logo span{color:var(--amber)}
+  .footer-note{font-size:.75rem;color:rgba(255,255,255,.25)}
+
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @media(max-width:768px){.nav-links{display:none}.hero-stats{gap:1.5rem}.stat-sep{display:none}.sumate-inner{grid-template-columns:1fr;gap:40px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><div class="nav-logo-icon">AV</div><span class="nav-logo-text">ACÁ A LA <span>VUELTA</span></span></a>
+  <ul class="nav-links">
+    <li><a href="#promos">Promos</a></li>
+    <li><a href="#bancos">Bancos</a></li>
+    <li><a href="#como">Cómo funciona</a></li>
+    <li><a href="#sumate" class="highlight">Sumá tu comercio</a></li>
+  </ul>
+  <a href="#sumate" class="nav-cta">Sumá tu local</a>
+</nav>
+
+<div class="ticker-wrap"><div class="ticker-track" id="tk"></div></div>
+
+<section class="hero">
+  <div class="hero-bg-grid"></div><div class="hero-bg-gradient"></div><div class="hero-grain"></div>
+  <div class="hero-eyebrow"><span></span>Promos del barrio · Mataderos</div>
+  <h1 class="hero-title">ACÁ A LA <span class="accent">VUELTA</span><span class="small-line">las promos de tu barrio</span></h1>
+  <p class="hero-sub"><strong>Los descuentos de los comercios de Mataderos</strong> + todas las promos de bancos y billeteras, en un solo lugar. Gratis, sin vueltas.</p>
+  <div class="hero-search">
+    <input placeholder="Buscá una promo, comercio o rubro…" />
+    <button><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Buscar</button>
+  </div>
+  <div class="hero-cats">
+    <a class="active">Todo</a><a>Gastronomía</a><a>Almacén y súper</a><a>Belleza</a><a>Salud</a><a>Combustible</a><a>Bancos</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">80<span>+</span></div><div class="stat-label">Comercios del barrio</div></div>
+    <div class="stat-sep"></div>
+    <div><div class="stat-num">60<span>+</span></div><div class="stat-label">Promos y descuentos</div></div>
+    <div class="stat-sep"></div>
+    <div><div class="stat-num">19</div><div class="stat-label">Bancos y billeteras</div></div>
+  </div>
+</section>
+
+<section class="section" id="promos">
+  <div class="section-header">
+    <h2 class="section-title">Promos <em>cerca tuyo</em></h2>
+    <span class="section-count">Mostrando 6 de 60+</span>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active">Todas</button><button class="filter-btn">Gastronomía</button>
+    <button class="filter-btn">Almacén</button><button class="filter-btn">Belleza</button>
+    <button class="filter-btn">Salud</button><button class="filter-btn">Combustible</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="section" id="bancos" style="background:#141210">
+  <div class="section-header"><h2 class="section-title">Descuentos <em>bancarios</em></h2><span class="section-count">19 entidades · hoy es viernes</span></div>
+  <div class="grid" id="grid-bancos"></div>
+  <div class="bancos-strip" id="strip"></div>
+</section>
+
+<section class="section section-how" id="como">
+  <h2 class="section-title">¿Cómo <em>funciona</em>?</h2>
+  <div class="how-grid">
+    <div class="how-step"><div class="step-num">01</div><div class="step-icon">📍</div><div class="step-title">Mirá lo que hay cerca</div><div class="step-desc">Promos de los comercios de tu barrio + los descuentos de tu banco, filtrados por día.</div></div>
+    <div class="how-step"><div class="step-num">02</div><div class="step-icon">📷</div><div class="step-title">Escaneá el QR en el local</div><div class="step-desc">Llegás, escaneás el código del comercio y se valida tu canje al instante.</div></div>
+    <div class="how-step"><div class="step-num">03</div><div class="step-icon">🎉</div><div class="step-title">Listo, ahorraste</div><div class="step-desc">Mostrás el código y aprovechás la promo. Sin tarjetas de plástico ni vueltas.</div></div>
+  </div>
+</section>
+
+<section class="section section-sumate" id="sumate">
+  <div class="sumate-inner">
+    <div>
+      <div class="sumate-eyebrow"><span>●</span> Para comercios</div>
+      <h2 class="sumate-title">Sumá tu comercio <span>gratis</span></h2>
+      <p class="sumate-desc">Armá tu promo, elegí qué día y traé vecinos los días flojos. Vos controlás la oferta y ves cuántos la canjearon. Gratis para empezar.</p>
+      <ul class="sumate-perks">
+        <li><span class="perk-check">✓</span> Cargás tu promo en 2 minutos</li>
+        <li><span class="perk-check">✓</span> Solo le descontás a quien viene por la app</li>
+        <li><span class="perk-check amber">✓</span> Ves cuántos la miraron y canjearon</li>
+        <li><span class="perk-check">✓</span> Sticker para la vidriera + QR propio</li>
+      </ul>
+    </div>
+    <div class="sumate-form">
+      <h3>Dejanos tus datos</h3>
+      <div class="form-field">
+        <input placeholder="Nombre del comercio" />
+        <select><option>Rubro…</option><option>Gastronomía</option><option>Almacén y súper</option><option>Belleza</option><option>Salud</option><option>Otro</option></select>
+        <input placeholder="WhatsApp" />
+        <button class="btn-submit">Sumar mi comercio</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">ACÁ A LA <span>VUELTA</span></div>
+  <div class="footer-note">Prototipo · Mataderos, CABA · formato estilo Once Ya</div>
+</footer>
+
+<script>
+  // ticker
+  const rubros=['Gastronomía','Almacén','Belleza','Salud','Combustible','Promos del barrio','Descuentos bancarios','Canjeá por QR','Mataderos'];
+  const tk=document.getElementById('tk');
+  let html='';for(let r=0;r<2;r++){rubros.forEach(x=>html+=`<span>${x}</span><span class="sep">·</span>`);}
+  tk.innerHTML=html;
+
+  // promos
+  const promos=[
+    {emoji:'🥩',com:'Frigorífico Chicago',name:'2x1 en milanesas',addr:'Av. Lisandro de la Torre',pin:'2x1',tags:['Gastronomía','Jueves a Dom'],c:'c1'},
+    {emoji:'🍦',com:'Heladería La Esquina',name:'25% en helados artesanales',addr:'Av. J. B. Alberdi 6200',pin:'-25%',tags:['Gastronomía','Todos los días'],c:'c6'},
+    {emoji:'💊',com:'Farmacia del Parque',name:'15% en perfumería',addr:'Av. Directorio 4200',pin:'-15%',tags:['Salud','Lun a Vie'],c:'c3'},
+    {emoji:'✂️',com:'Peluquería Estilo',name:'Combo corte + barba',addr:'Saladillo 2300',pin:'Combo',tags:['Belleza','Con turno'],c:'c5'},
+    {emoji:'🛒',com:'Autoservicio Lomas',name:'10% en almacén',addr:'Av. E. Mosconi',addr2:'',pin:'-10%',tags:['Almacén','Martes'],c:'c4'},
+    {emoji:'🍕',com:'Pizzería El Hornero',name:'Docena de empanadas 20% off',addr:'Av. J. B. Alberdi 5800',pin:'-20%',tags:['Gastronomía','Mié y Jue'],c:'c2'},
+  ];
+  document.getElementById('grid').innerHTML=promos.map(p=>`
+    <div class="card">
+      <div class="card-thumb ${p.c}">
+        <div class="card-emoji">${p.emoji}</div>
+        <div class="card-pin">${p.pin}</div>
+        <div class="card-com">${p.com}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-address">📍 ${p.addr}</div>
+        <div class="card-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-actions">
+          <a class="btn-wa">Ver promo →</a>
+          <a class="btn-more">🗺️</a>
+        </div>
+      </div>
+    </div>`).join('');
+
+  // bancos cards (hoy viernes)
+  const banc=[
+    {emoji:'🏦',com:'ICBC',name:'20% en Supermercados Día',pin:'-20%',tags:['Viernes','$20.000/mes'],c:'c1'},
+    {emoji:'🏦',com:'Santander',name:'25% en Carrefour',pin:'-25%',tags:['Viernes','$20.000/mes'],c:'c1'},
+    {emoji:'🏦',com:'Banco Nación',name:'20% en combustible',pin:'-20%',tags:['Viernes','$10.000/mes'],c:'c2'},
+  ];
+  document.getElementById('grid-bancos').innerHTML=banc.map(p=>`
+    <div class="card">
+      <div class="card-thumb ${p.c}"><div class="card-emoji">${p.emoji}</div><div class="card-pin">${p.pin}</div><div class="card-com">${p.com}</div></div>
+      <div class="card-body"><div class="card-name">${p.name}</div>
+        <div class="card-tags">${p.tags.map(t=>`<span class="tag amber">${t}</span>`).join('')}</div>
+        <div class="card-actions"><a class="btn-wa">Ver en el banco →</a></div>
+      </div>
+    </div>`).join('');
+
+  const ents=[['Galicia','#ff7a00'],['Nación','#1b4a9c'],['Provincia','#00a04a'],['BBVA','#1464a5'],['Santander','#ec0000'],['Macro','#0072ce'],['ICBC','#c8102e'],['Naranja X','#ff5000'],['Ualá','#5a2d82'],['Mercado Pago','#00b1ea'],['Brubank','#6c2bd9'],['Personal Pay','#5f259f']];
+  document.getElementById('strip').innerHTML=ents.map(e=>`<div class="banco-chip"><span class="banco-dot" style="background:${e[1]}"></span>${e[0]}</div>`).join('');
+</script>
+</body>
+</html>

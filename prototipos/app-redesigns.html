@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Acá a la Vuelta — rediseños v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&family=Bricolage+Grotesque:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#dcdce2;font-family:'Inter',system-ui,sans-serif;color:#15151a;padding:28px 18px 70px}
+  .page-h{text-align:center;max-width:920px;margin:0 auto 30px}
+  .page-h h1{font-size:26px;font-weight:800}
+  .page-h p{color:#5a5a66;margin-top:6px;font-size:14px}
+  .board{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+  .opt{width:340px}
+  .label{margin-bottom:12px}
+  .label .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:4px 9px;border-radius:6px}
+  .label h2{font-size:19px;font-weight:800;margin-top:8px}
+  .label p{font-size:13px;color:#5a5a66;margin-top:3px;line-height:1.45}
+  .phone{width:340px;height:720px;border-radius:36px;overflow:hidden;box-shadow:0 20px 55px rgba(0,0,0,.25);position:relative;display:flex;flex-direction:column;background:#fff}
+  .body{flex:1;overflow:hidden;position:relative}
+  .nav{height:62px;display:flex;align-items:center}
+  .nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px}
+  .pin-ic{font-size:18px}
+
+  /* =================== 1 · MAPA VIVO =================== */
+  .M{font-family:'Inter'}
+  .M .body{background:#e8ede6}
+  .M .streets{position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 38px, #d7ddd4 38px 41px),
+      repeating-linear-gradient(90deg, transparent 0 46px, #d7ddd4 46px 49px),
+      linear-gradient(115deg,#f0d9a8 0 0) ; background-blend-mode:normal;}
+  .M .ave{position:absolute;height:14px;left:-20px;right:-20px;top:230px;background:#f4cf8a;transform:rotate(-8deg)}
+  .M .park{position:absolute;width:120px;height:90px;border-radius:10px;background:#c7e0bd;left:150px;top:300px}
+  .M .mpin{position:absolute;width:30px;height:30px;border-radius:50% 50% 50% 0;background:#c5462f;transform:rotate(-45deg);box-shadow:0 4px 10px rgba(0,0,0,.3);border:3px solid #fff}
+  .M .mpin.s{background:#1f7a4d}
+  .M .topbar{position:absolute;top:0;left:0;right:0;padding:16px 16px 30px;background:linear-gradient(#000a,transparent);color:#fff;z-index:5}
+  .M .topbar .brand{font-weight:800;font-size:18px}
+  .M .topbar .barrio{font-size:12px;opacity:.9}
+  .M .sheet{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-radius:22px 22px 0 0;padding:14px 16px 16px;box-shadow:0 -8px 30px rgba(0,0,0,.12);z-index:6}
+  .M .grab{width:40px;height:4px;border-radius:3px;background:#bbb;margin:0 auto 12px}
+  .M .sheet h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#888;margin-bottom:9px}
+  .M .card{display:flex;gap:11px;align-items:center;padding:9px;border-radius:14px;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.06);margin-bottom:9px}
+  .M .card .ph{width:46px;height:46px;border-radius:11px;background-size:cover;flex:none}
+  .M .card .t{flex:1}
+  .M .card .t b{font-size:14px}
+  .M .card .t span{font-size:12px;color:#888;display:block}
+  .M .card .pc{font-weight:800;color:#c5462f;font-size:15px}
+  .M .nav{background:#fff;border-top:1px solid #eee}
+  .M .nav a{color:#9aa}.M .nav a.on{color:#c5462f;font-weight:700}
+  .tag.tm{background:#1f7a4d}
+
+  /* =================== 2 · EDITORIAL DE BARRIO =================== */
+  .E{font-family:'Inter';background:#f7f4ef}
+  .E .body{background:#f7f4ef;overflow-y:auto}
+  .E .hd{padding:20px 20px 6px}
+  .E .kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#b08948;font-weight:700}
+  .E .mast{font-family:'Instrument Serif';font-size:38px;line-height:.95;margin-top:6px}
+  .E .mast i{font-style:italic}
+  .E .rule{height:2px;background:#15151a;margin:14px 20px}
+  .E .lead{padding:0 20px}
+  .E .lead .ph{height:150px;border-radius:4px;background-size:cover;background-position:center}
+  .E .lead h3{font-family:'Instrument Serif';font-size:25px;margin-top:10px;line-height:1.05}
+  .E .lead .by{font-size:12px;color:#9a8f80;margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+  .E .num{display:flex;gap:13px;padding:14px 20px;border-top:1px solid #e3ddd2}
+  .E .num .n{font-family:'Instrument Serif';font-size:30px;color:#b08948;line-height:1;width:30px}
+  .E .num .tx b{font-size:15px}.E .num .tx span{font-size:12.5px;color:#9a8f80;display:block;margin-top:2px}
+  .E .num .pc{margin-left:auto;font-family:'Instrument Serif';font-size:22px}
+  .E .nav{background:#f7f4ef;border-top:2px solid #15151a}
+  .E .nav a{color:#b3a896}.E .nav a.on{color:#15151a;font-weight:700}
+  .tag.te{background:#b08948}
+
+  /* =================== 3 · CARTEL (NEO-BRUTALISTA) =================== */
+  .B2{font-family:'Archivo';background:#ffe14d}
+  .B2 .body{background:#ffe14d;overflow-y:auto}
+  .B2 .hd{padding:16px;border-bottom:3px solid #111}
+  .B2 .hd .brand{font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:-.02em;line-height:.9}
+  .B2 .hd .barrio{display:inline-block;margin-top:7px;background:#111;color:#ffe14d;font-size:11px;font-weight:700;padding:3px 8px;text-transform:uppercase}
+  .B2 .strip{margin:14px;background:#1f6dff;color:#fff;border:3px solid #111;box-shadow:5px 5px 0 #111;padding:11px 13px;font-weight:700;font-size:13px}
+  .B2 .promo{margin:14px;background:#fff;border:3px solid #111;box-shadow:6px 6px 0 #111}
+  .B2 .promo .ph{height:120px;background-size:cover;border-bottom:3px solid #111;position:relative}
+  .B2 .promo .pin{position:absolute;top:-3px;right:-3px;background:#ff4d4d;color:#fff;border:3px solid #111;font-weight:900;padding:4px 9px;font-size:15px;transform:rotate(3deg)}
+  .B2 .promo .meta{padding:11px 13px}
+  .B2 .promo .meta h3{font-weight:900;font-size:17px;text-transform:uppercase;line-height:.95}
+  .B2 .promo .meta .com{font-size:12.5px;font-weight:600;margin-top:3px}
+  .B2 .nav{background:#fff;border-top:3px solid #111}
+  .B2 .nav a{color:#999;font-weight:700}.B2 .nav a.on{color:#111}
+  .tag.tb{background:#111}
+
+  /* =================== 4 · CARNET DEL BARRIO =================== */
+  .C2{font-family:'Sora';background:#101426}
+  .C2 .body{background:radial-gradient(120% 80% at 50% 0%,#23305c 0%,#101426 60%);overflow-y:auto}
+  .C2 .hd{padding:18px 18px 4px;color:#fff}
+  .C2 .hd .brand{font-weight:800;font-size:18px}
+  .C2 .hd .barrio{font-size:12px;color:#9fb0e0}
+  .C2 .carnet{margin:14px;border-radius:18px;padding:16px;background:linear-gradient(120deg,#ff8a3d,#ff4d6d);color:#fff;box-shadow:0 12px 30px rgba(255,77,109,.35);position:relative;overflow:hidden}
+  .C2 .carnet::after{content:'';position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.13);right:-50px;top:-60px}
+  .C2 .carnet .lab{font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+  .C2 .carnet .who{font-weight:700;font-size:17px;margin-top:2px}
+  .C2 .carnet .code{font-family:'Inter';font-weight:800;font-size:26px;letter-spacing:.22em;margin-top:14px}
+  .C2 .carnet .foot{display:flex;justify-content:space-between;font-size:11px;opacity:.9;margin-top:12px}
+  .C2 .sect{color:#9fb0e0;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin:6px 18px 9px}
+  .C2 .pass{margin:0 14px 11px;border-radius:14px;background:#1a2143;border:1px solid #2c376b;display:flex;align-items:center;gap:12px;padding:11px}
+  .C2 .pass .ph{width:48px;height:48px;border-radius:11px;background-size:cover;flex:none}
+  .C2 .pass .t{flex:1;color:#fff}
+  .C2 .pass .t b{font-size:14px}.C2 .pass .t span{font-size:12px;color:#9fb0e0;display:block}
+  .C2 .pass .pc{font-weight:800;color:#ffb16b}
+  .C2 .nav{background:#101426;border-top:1px solid #2c376b}
+  .C2 .nav a{color:#6b76a0}.C2 .nav a.on{color:#ff8a3d;font-weight:700}
+  .tag.tc{background:#ff4d6d}
+</style>
+</head>
+<body>
+  <div class="page-h">
+    <h1>Acá a la Vuelta · 4 direcciones nuevas</h1>
+    <p>Más distintas y con vuelo. Mismo contenido, conceptos de diseño diferentes. Elegí una y la aplico a la app real.</p>
+  </div>
+  <div class="board" id="board"></div>
+
+<script>
+const IMG1='https://picsum.photos/seed/parrillamata/600/400', IMG2='https://picsum.photos/seed/heladomata/600/400';
+
+const phones = {
+  M: `<div class="phone M"><div class="body">
+      <div class="streets"></div><div class="ave"></div><div class="park"></div>
+      <div class="mpin" style="left:70px;top:150px"></div>
+      <div class="mpin s" style="left:200px;top:190px"></div>
+      <div class="mpin" style="left:120px;top:250px"></div>
+      <div class="mpin" style="left:240px;top:300px"></div>
+      <div class="topbar"><div class="brand">Acá a la Vuelta</div><div class="barrio">📍 Mataderos · 80 comercios cerca</div></div>
+      <div class="sheet"><div class="grab"></div>
+        <h4>A la vuelta tuyo</h4>
+        <div class="card"><div class="ph" style="background-image:url('${IMG1}')"></div><div class="t"><b>2x1 en milanesas</b><span>Frigorífico Chicago · 120m</span></div><div class="pc">2x1</div></div>
+        <div class="card"><div class="ph" style="background-image:url('${IMG2}')"></div><div class="t"><b>25% en helados</b><span>La Esquina · 200m</span></div><div class="pc">-25%</div></div>
+      </div></div>
+      <div class="nav"><a class="on"><span class="pin-ic">🗺️</span>Cerca</a><a><span class="pin-ic">🏷️</span>Promos</a><a><span class="pin-ic">📷</span>Canjear</a><a><span class="pin-ic">🏦</span>Bancos</a><a><span class="pin-ic">🎟️</span>Mis</a></div></div>`,
+
+  E: `<div class="phone E"><div class="body">
+      <div class="hd"><div class="kicker">Mataderos · Jueves</div><div class="mast">Acá a la<br><i>Vuelta</i></div></div>
+      <div class="rule"></div>
+      <div class="lead"><div class="ph" style="background-image:url('${IMG1}')"></div>
+        <h3>2x1 en milanesas, toda la semana</h3>
+        <div class="by">Frigorífico Chicago — Av. Alberdi</div></div>
+      <div class="num"><div class="n">02</div><div class="tx"><b>25% en helados artesanales</b><span>Heladería La Esquina</span></div><div class="pc">25%</div></div>
+      <div class="num"><div class="n">03</div><div class="tx"><b>15% en perfumería</b><span>Farmacia del Parque</span></div><div class="pc">15%</div></div>
+      </div>
+      <div class="nav"><a class="on"><span class="pin-ic">📖</span>Hoy</a><a><span class="pin-ic">🏦</span>Bancos</a><a><span class="pin-ic">📷</span>Canjear</a><a><span class="pin-ic">🗺️</span>Mapa</a><a><span class="pin-ic">🎟️</span>Mis</a></div></div>`,
+
+  B2: `<div class="phone B2"><div class="body">
+      <div class="hd"><div class="brand">Acá a la<br>Vuelta</div><div class="barrio">📍 Mataderos</div></div>
+      <div class="strip">💳 HOY: 30% EN SÚPER CON TU BANCO →</div>
+      <div class="promo"><div class="ph" style="background-image:url('${IMG1}')"><div class="pin">2x1</div></div>
+        <div class="meta"><h3>2x1 en milanesas</h3><div class="com">Frigorífico Chicago</div></div></div>
+      <div class="promo"><div class="ph" style="background-image:url('${IMG2}')"><div class="pin">-25%</div></div>
+        <div class="meta"><h3>25% en helados</h3><div class="com">Heladería La Esquina</div></div></div>
+      </div>
+      <div class="nav"><a class="on"><span class="pin-ic">🏷️</span>Promos</a><a><span class="pin-ic">🏦</span>Bancos</a><a><span class="pin-ic">📷</span>Escanear</a><a><span class="pin-ic">🗺️</span>Mapa</a><a><span class="pin-ic">🎟️</span>Canjes</a></div></div>`,
+
+  C2: `<div class="phone C2"><div class="body">
+      <div class="hd"><div class="brand">Acá a la Vuelta</div><div class="barrio">📍 Mataderos</div></div>
+      <div class="carnet"><div class="lab">Socio del barrio</div><div class="who">Diego O.</div>
+        <div class="code">A7F2 39KQ</div>
+        <div class="foot"><span>12 canjes este mes</span><span>★ Nivel Vecino</span></div></div>
+      <div class="sect">Tus pases activos</div>
+      <div class="pass"><div class="ph" style="background-image:url('${IMG1}')"></div><div class="t"><b>2x1 en milanesas</b><span>Frigorífico Chicago</span></div><div class="pc">2x1</div></div>
+      <div class="pass"><div class="ph" style="background-image:url('${IMG2}')"></div><div class="t"><b>25% en helados</b><span>La Esquina</span></div><div class="pc">-25%</div></div>
+      </div>
+      <div class="nav"><a class="on"><span class="pin-ic">🎫</span>Carnet</a><a><span class="pin-ic">🏷️</span>Promos</a><a><span class="pin-ic">📷</span>Canjear</a><a><span class="pin-ic">🏦</span>Bancos</a><a><span class="pin-ic">🗺️</span>Mapa</a></div></div>`,
+};
+
+const opts=[
+  ['M','tm','Mapa Vivo','El mapa ES la home. Descubrís lo que tenés a la vuelta con cards flotantes tipo glass y distancia en metros. Espacial, geo, muy "a la vuelta de tu casa".'],
+  ['E','te','Editorial de Barrio','Una revista local curada. Tipografía serif grande, grilla asimétrica, aire. Premium y con identidad, no parece app de cupones.'],
+  ['B2','tb','Cartel (neo-brutalista)','Audaz, bordes gruesos, bloques planos, estética de sticker de vidriera. Imposible de confundir, muy memorable. On-trend.'],
+  ['C2','tc','Carnet del Barrio','Promos como pases coleccionables + carnet de socio con tu código de canje. Tono club/fidelización, tactil y premium.'],
+];
+
+document.getElementById('board').innerHTML = opts.map(o=>`
+  <div class="opt">
+    <div class="label"><span class="tag ${o[1]}">Opción ${o[0]==='B2'?'C':o[0]==='C2'?'D':o[0]==='M'?'A':'B'}</span>
+      <h2>${o[2]}</h2><p>${o[3]}</p></div>
+    ${phones[o[0]]}
+  </div>`).join('');
+</script>
+</body>
+</html>
